@@ -12,10 +12,9 @@
       var CommentList = React.createClass({displayName: "CommentList",
         render:function(){
           return(
-            React.createElement("div", {className: "commentList"}, 
-              React.createElement(Comment, {author: "Pete Hunt"}, "This is one comment"), 
-              React.createElement(Comment, {author: "Jordan Walke"}, "This is *another* comment")
-            )
+              React.createElement("div", {className: "commentList"}, 
+                "Hello.world! I am a CommentList."
+              )
             );
         }
       });
@@ -35,7 +34,7 @@
                 React.createElement("h2", {className: "commentAuthor"}, 
                   this.props.author
                 ), 
-                this.props.children
+                this.prop.children
               )  
             );
         }
