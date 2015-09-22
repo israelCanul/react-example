@@ -17,8 +17,7 @@
           return{data:[]};
         },
         componentDidMount: function() {
-          this.loadCommentsFromServer();
-          setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+
         },        
         render: function() {
           return (
@@ -70,6 +69,6 @@
         }
       });
       React.render(
-        React.createElement(CommentBox, {url: "comments.json", pollInterval: 2000}),
+        React.createElement(CommentBox, {url: "comments.json"}),
         document.getElementById('content')
       );
