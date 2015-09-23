@@ -17,9 +17,6 @@
           return{data:[]};
         },
         handleCommentSubmit:function(comment){
-    var comments = this.state.data;
-    var newComments = comments.concat([comment]);
-    this.setState({data: newComments});          
           $.ajax({
             url: this.props.url,
             dataType: 'json',
@@ -103,6 +100,6 @@
         }
       });
       React.render(
-        React.createElement(CommentBox, {url: "http://localhost/comments.json", pollInterval: 2000}),
+        React.createElement(CommentBox, {url: "comments.json", pollInterval: 2000}),
         document.getElementById('content')
       );

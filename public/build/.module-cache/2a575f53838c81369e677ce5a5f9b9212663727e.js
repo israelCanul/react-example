@@ -17,21 +17,7 @@
           return{data:[]};
         },
         handleCommentSubmit:function(comment){
-    var comments = this.state.data;
-    var newComments = comments.concat([comment]);
-    this.setState({data: newComments});          
-          $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            type: 'POST',
-            data: comment,
-            success: function(data) {
-              this.setState({data: data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-              console.error(this.props.url, status, err.toString());
-            }.bind(this)
-          });
+
         },
         componentDidMount: function() {
           this.loadCommentsFromServer();
@@ -71,7 +57,6 @@
           if(!text || !author){
             return;
           }
-          this.props.onCommentSubmit({author: author, text: text});
           React.findDOMNode(this.refs.author).value = '';
           React.findDOMNode(this.refs.text).value = '';
           return;
@@ -103,6 +88,6 @@
         }
       });
       React.render(
-        React.createElement(CommentBox, {url: "http://localhost/comments.json", pollInterval: 2000}),
+        React.createElement(CommentBox, {url: "comments.json", pollInterval: 2000}),
         document.getElementById('content')
       );

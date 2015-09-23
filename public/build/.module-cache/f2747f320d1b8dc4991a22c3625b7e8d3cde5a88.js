@@ -16,23 +16,6 @@
         getInitialState:function(){
           return{data:[]};
         },
-        handleCommentSubmit:function(comment){
-    var comments = this.state.data;
-    var newComments = comments.concat([comment]);
-    this.setState({data: newComments});          
-          $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            type: 'POST',
-            data: comment,
-            success: function(data) {
-              this.setState({data: data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-              console.error(this.props.url, status, err.toString());
-            }.bind(this)
-          });
-        },
         componentDidMount: function() {
           this.loadCommentsFromServer();
           setInterval(this.loadCommentsFromServer, this.props.pollInterval);
@@ -42,7 +25,7 @@
             React.createElement("div", {className: "commentBox"}, 
               React.createElement("h1", null, "Comments"), 
               React.createElement(CommentList, {data: this.state.data}), 
-              React.createElement(CommentForm, {onCommentSubmit: this.handleCommentSubmit})
+              React.createElement(CommentForm, null)
             )
           );
         }
@@ -71,7 +54,6 @@
           if(!text || !author){
             return;
           }
-          this.props.onCommentSubmit({author: author, text: text});
           React.findDOMNode(this.refs.author).value = '';
           React.findDOMNode(this.refs.text).value = '';
           return;
@@ -80,8 +62,8 @@
         render:function(){
             return(
               React.createElement("form", {className: "commentForm", onSubmit: this.handleSubmit}, 
-                React.createElement("input", {type: "text", placeholder: "Your Name", ref: "author"}), 
-                React.createElement("input", {type: "text", placeholder: "Say something...", ref: "text"}), 
+                React.createElement("input", {type: "text", placeholder: "Your Name"}), 
+                React.createElement("input", {type: "text", placeholder: "Say something..."}), 
                 React.createElement("input", {type: "submit", value: "Post"})
               )
             );    
@@ -103,6 +85,6 @@
         }
       });
       React.render(
-        React.createElement(CommentBox, {url: "http://localhost/comments.json", pollInterval: 2000}),
+        React.createElement(CommentBox, {url: "comments.json", pollInterval: 2000}),
         document.getElementById('content')
       );
